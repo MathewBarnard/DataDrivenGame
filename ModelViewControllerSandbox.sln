@@ -1,0 +1,26 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2015
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ModelViewControllerSandbox", "ModelViewControllerSandbox.csproj", "{271C4F5D-841E-BD12-3AE8-F68EFFD50758}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ModelViewControllerSandbox.Editor", "ModelViewControllerSandbox.Editor.csproj", "{13E099FD-3AAB-3C32-4507-ACD834537908}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{271C4F5D-841E-BD12-3AE8-F68EFFD50758}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{271C4F5D-841E-BD12-3AE8-F68EFFD50758}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{271C4F5D-841E-BD12-3AE8-F68EFFD50758}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{271C4F5D-841E-BD12-3AE8-F68EFFD50758}.Release|Any CPU.Build.0 = Release|Any CPU
+		{13E099FD-3AAB-3C32-4507-ACD834537908}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{13E099FD-3AAB-3C32-4507-ACD834537908}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{13E099FD-3AAB-3C32-4507-ACD834537908}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{13E099FD-3AAB-3C32-4507-ACD834537908}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
