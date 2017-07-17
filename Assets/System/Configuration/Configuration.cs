@@ -6,6 +6,12 @@ using System.Xml.Serialization;
 
 namespace MVCGame.System.Configuration {
 
+    public enum ConfigurationType {
+
+        DataStorage,
+        Battle
+    };
+
     /// <summary>
     /// An object representation of a base XML configuration.
     /// </summary>

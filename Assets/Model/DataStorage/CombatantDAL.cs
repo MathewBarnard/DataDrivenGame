@@ -27,7 +27,6 @@ namespace MVCGame.MVC.Model.DataStorage.XML {
             Characters.Combatant combatant = new Characters.Combatant();
             combatant.Name = this.Name;
             combatant.Stats = (Characters.Stats)this.Stats.GetModel();
-            combatant.ActionPoints = new Characters.ActionPoints(combatant.Stats.Speed.DefaultValue);
 
             return combatant;
         }
@@ -37,7 +36,7 @@ namespace MVCGame.MVC.Model.DataStorage.XML {
             //// ARRANGE
             // Load the configuration
             ConfigurationFactory configFactory = new ConfigurationFactory();
-            DataStorageConfiguration dataStoreConfig = (DataStorageConfiguration)configFactory.GetConfiguration("DataStorageConfiguration");
+            DataStorageConfiguration dataStoreConfig = (DataStorageConfiguration)configFactory.GetConfiguration(ConfigurationType.DataStorage);
 
             // Set the path of the CharacterDataStore configuration
             string path = Application.dataPath + dataStoreConfig.GetConfiguration("CharacterDataStore") + dataStoreConfig.GetConfiguration("PlayersStore") + nameOfCombatant + ".xml";

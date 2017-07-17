@@ -12,17 +12,7 @@ namespace MVCGame.MVC.Model.Encounters {
     /// </summary>
     public class RandomEncounter {
 
-        // Determines whose turn it is
-        private enum TurnOrder { PLAYER, ENEMY };
-        private TurnOrder turnOrder;
-
-        // The number of action points needed to act on this turn
-        private static int actionPointCap;
-        public static int ActionPointCap {
-            get { return actionPointCap; }
-        }
-
-        // The number of turns taken. 1 turn is a player action, and an enemy action.
+        // The number of turns elapsed.
         private int turnsTaken;
 
         private Party playerParty;
@@ -43,13 +33,11 @@ namespace MVCGame.MVC.Model.Encounters {
 
         public RandomEncounter(string playerParty, string enemyParty) {
             currentTurn = null;
-            turnOrder = TurnOrder.PLAYER;
             turnsTaken = 0;
 
             // Set battle parameters based on developer configuration
             ConfigurationFactory configFactory = new ConfigurationFactory();
-            BattleConfiguration config = (BattleConfiguration)configFactory.GetConfiguration("BattleConfiguration");
-            actionPointCap = Convert.ToInt32(config.GetConfiguration("ActionPointThreshold"));
+            BattleConfiguration config = (BattleConfiguration)configFactory.GetConfiguration(ConfigurationType.Battle);
 
             // Load the players current party configuration and the enemy party from storage. 
             DataStorage.XML.PartyDAL partyDao = new DataStorage.XML.PartyDAL();
@@ -61,13 +49,7 @@ namespace MVCGame.MVC.Model.Encounters {
 
             this.currentTurn = null;
 
-            // Begin the turn
-            if (turnOrder == TurnOrder.PLAYER) {
-                this.currentTurn = new Turn(playerParty.PartyMembers);
-            }
-            else {
-                this.currentTurn = new Turn(enemyParty.PartyMembers);
-            }
+            this.currentTurn = new Turn();
 
             // Begin the turn
             this.currentTurn.BeginTurn();

@@ -6,21 +6,21 @@
     xmlns:mstns="http://tempuri.org/Combatant.xsd"
     xmlns:xs="http://www.w3.org/2001/XMLSchema"
 >
-  <xs:element name="Combatant">
-    <xs:complexType>
+  <xs:element name="Combatant" type="CombatantType"/>
+    <xs:complexType name="CombatantType">
       <xs:sequence>
-        <xs:element name="Name"></xs:element>
-        <xs:element name="Stats">
-          <xs:complexType>
-            <xs:sequence>
-              <xs:element name="MaxHealth" type="xs:int"/>
-              <xs:element name="BaseAttack" type="xs:int"/>
-              <xs:element name="BaseDefense" type="xs:int"/>
-              <xs:element name="BaseSpeed" type="xs:int"/>
-            </xs:sequence>
-          </xs:complexType>
-        </xs:element>
+        <xs:element name="Name" type="xs:string" minOccurs="1" maxOccurs="1" />
+        <xs:element name="Stats" type="StatsType" minOccurs="1" maxOccurs="1" />
       </xs:sequence>
     </xs:complexType>
-  </xs:element>
+    <xs:complexType name="StatsType">
+      <xs:sequence>
+        <xs:element name="MaxHealth" type="xs:int" minOccurs="1" maxOccurs="1"/>
+        <xs:element name="BaseAttack" type="xs:int" minOccurs="1" maxOccurs="1"/>
+        <xs:element name="BaseDefense" type="xs:int" minOccurs="1" maxOccurs="1"/>
+        <xs:element name="BaseSpeed" type="xs:int" minOccurs="1" maxOccurs="1"/>
+        <xs:element name="BaseShield" type="xs:int" minOccurs="1" maxOccurs="1"/>
+        <xs:element name="BaseHits" type="xs:int" minOccurs="1" maxOccurs="1"/>
+      </xs:sequence>
+    </xs:complexType>
 </xs:schema>

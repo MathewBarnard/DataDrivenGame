@@ -8,13 +8,6 @@ namespace MVCGame.MVC.Model.Encounters {
 
     public class Turn {
 
-        // The combatants that are acting this turn.
-        private List<Combatant> actingCombatants;
-        public List<Combatant> ActingCombatants {
-            get { return actingCombatants; }
-            set { actingCombatants = value; }
-        }
-
         // The current phase of this turn.
         private Phase currentPhase;
         public Phase CurrentPhase {
@@ -40,8 +33,7 @@ namespace MVCGame.MVC.Model.Encounters {
         }
 
         // A turn always begins on upkeep
-        public Turn(List<Combatant> actingCombatants) {
-            ActingCombatants = actingCombatants;
+        public Turn() {
             upkeepPhase = new UpkeepPhase();
             currentPhase = upkeepPhase;
         }
@@ -68,10 +60,6 @@ namespace MVCGame.MVC.Model.Encounters {
         }
 
         public void BeginTurn() {
-
-            // Returns a list of all combatants that can act this turn
-            actingCombatants = upkeepPhase.GetCombatantsToAct(actingCombatants);
-
             NextPhase();
         }
     }

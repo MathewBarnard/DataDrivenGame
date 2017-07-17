@@ -27,7 +27,7 @@ namespace MVCGame.MVC.Model.DataStorage.XML {
             //// ARRANGE
             // Load the configuration
             ConfigurationFactory configFactory = new ConfigurationFactory();
-            DataStorageConfiguration dataStoreConfig = (DataStorageConfiguration)configFactory.GetConfiguration("DataStorageConfiguration");
+            DataStorageConfiguration dataStoreConfig = (DataStorageConfiguration)configFactory.GetConfiguration(ConfigurationType.DataStorage);
 
             // Set the path of the CharacterDataStore configuration
             string path = Application.dataPath + dataStoreConfig.GetConfiguration("PartyDataStore") + nameOfParty + ".xml";

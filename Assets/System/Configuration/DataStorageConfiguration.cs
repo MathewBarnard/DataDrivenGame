@@ -9,10 +9,15 @@ namespace MVCGame.System.Configuration {
     /// <summary>
     /// An object that represents the Data Storage Configuration. This configuration manages the locations of files
     /// that hold in-game data for characters, enemies, etc.
-    /// </summary>
-    
+    /// </summary>    
     [Serializable]
     public class DataStorageConfiguration : Configuration {
+
+        public const string CHARACTER_DATA_STORE = "CharacterDataStore";
+        public const string MENU_LAYOUTS = "MenuLayoutStore";
+        public const string PARTY_DATA_STORE = "PartyDataStore";
+        public const string PLAYER_STORE = "PlayerStore";
+        public const string TEST_PLAYERS_STORE = "TestPlayersStore";
 
         public DataStorageConfiguration() {
 

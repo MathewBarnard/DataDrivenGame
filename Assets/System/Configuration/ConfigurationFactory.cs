@@ -11,14 +11,14 @@ namespace MVCGame.System.Configuration {
     /// </summary>
     public class ConfigurationFactory {
 
-        public Configuration GetConfiguration(string configName) {
+        public Configuration GetConfiguration(ConfigurationType config) {
 
             XmlSerializer serializer = null;
             FileStream fileStream = null;
 
-            switch (configName) {
+            switch (config) {
 
-                case "DataStorageConfiguration":
+                case ConfigurationType.DataStorage:
 
                     // Load the config
                     serializer = new XmlSerializer(typeof(DataStorageConfiguration));
@@ -27,7 +27,7 @@ namespace MVCGame.System.Configuration {
                     fileStream.Close();
                     return dataStoreConfig;
 
-                case "BattleConfiguration":
+                case ConfigurationType.Battle:
                     // Load the config
                     serializer = new XmlSerializer(typeof(BattleConfiguration));
                     fileStream = new FileStream(String.Format("{0}{1}/BattleConfiguration.xml", Application.dataPath, Configuration.FilePath), FileMode.Open);

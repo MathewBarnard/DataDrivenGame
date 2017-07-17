@@ -21,7 +21,7 @@ namespace MVCGame.Testing {
 
             // Load the configuration
             ConfigurationFactory configFactory = new ConfigurationFactory();
-            DataStorageConfiguration dataStoreConfig = (DataStorageConfiguration)configFactory.GetConfiguration("DataStorageConfiguration");
+            DataStorageConfiguration dataStoreConfig = (DataStorageConfiguration)configFactory.GetConfiguration(ConfigurationType.DataStorage);
 
             // Set the path of the CharacterDataStore configuration
             string path = Application.dataPath + dataStoreConfig.GetConfiguration("CharacterDataStore") + "/Enemies/Goblin.xml";

@@ -21,7 +21,7 @@ public class BasicAttackTests {
         Combatant actingCombatant = (Combatant)combatantDAL.LoadModel("Test-1");
         Combatant targetCombatant = (Combatant)combatantDAL.LoadModel("Test-2");
 
-        BasicAttack basicAttack = new BasicAttack();
+        ValiantStrike basicAttack = new ValiantStrike();
         basicAttack.SetTarget(targetCombatant);
         basicAttack.SetActingCombatant(actingCombatant);
 

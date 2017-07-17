@@ -13,12 +13,6 @@ namespace MVCGame.MVC.Model.Characters {
         // The characters unique battle ID
         private Guid id;
 
-        private ActionPoints actionPoints;
-        public ActionPoints ActionPoints {
-            get { return actionPoints; }
-            set { actionPoints = value; }
-        }
-
         private string name;
         public string Name {
             get { return name; }

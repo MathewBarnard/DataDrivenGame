@@ -24,7 +24,6 @@ public class RandomEncounterTests {
         //// ASSERT
         Assert.IsNotNull(randomEncounter.PlayerParty);
         Assert.IsNotNull(randomEncounter.EnemyParty);
-        Assert.AreEqual(RandomEncounter.ActionPointCap, 100);
     }
 
     [Test]
@@ -41,12 +40,6 @@ public class RandomEncounterTests {
         Assert.IsNotNull(randomEncounter.PlayerParty);
         Assert.IsNotNull(randomEncounter.EnemyParty);
 
-        // Check that each character has had action points added during upkeep
-        foreach(MVCGame.MVC.Model.Characters.Combatant combatant in randomEncounter.PlayerParty.PartyMembers) {
-
-            Assert.AreNotEqual(0, combatant.ActionPoints);
-        }
-
         // Check that the turn has moved onto the planning phase
         Assert.AreEqual(Phase.PhaseName.PLANNING, randomEncounter.CurrentTurn.CurrentPhase.Name);
     }
@@ -61,8 +54,8 @@ public class RandomEncounterTests {
         //// ACT
         randomEncounter.BeginTurn();
 
-        foreach(Combatant combatant in randomEncounter.CurrentTurn.ActingCombatants) {
-            BasicAttack attack = new MVCGame.MVC.Model.BattleActions.BasicAttack();
+        foreach(Combatant combatant in randomEncounter.PlayerParty.PartyMembers) {
+            ValiantStrike attack = new MVCGame.MVC.Model.BattleActions.ValiantStrike();
             attack.SetActingCombatant(combatant);
             attack.SetTarget(randomEncounter.EnemyParty.PartyMembers[0]);
             randomEncounter.CurrentTurn.PlanningPhase.ActionsToPerform.Add(attack);
@@ -79,7 +72,7 @@ public class RandomEncounterTests {
 
             SingleTargetActionResult castResult = (SingleTargetActionResult)result;
             Assert.IsNotNull(result);
-            Assert.AreNotEqual(0, castResult.DamageDealt);
+            Assert.AreNotEqual(0, castResult.ShieldDamageDealt);
         }
     }
 }

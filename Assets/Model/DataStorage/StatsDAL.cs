@@ -14,6 +14,8 @@ namespace MVCGame.MVC.Model.DataStorage.XML {
             BaseAttack = 0;
             BaseDefense = 0;
             BaseSpeed = 0;
+            BaseShield = 0;
+            BaseHits = 0;
         }
 
         [XmlElement(ElementName = "MaxHealth")]
@@ -28,13 +30,19 @@ namespace MVCGame.MVC.Model.DataStorage.XML {
         [XmlElement(ElementName = "BaseSpeed")]
         public int BaseSpeed;
 
+        [XmlElement(ElementName = "BaseShield")]
+        public int BaseShield;
+
+        [XmlElement(ElementName = "BaseHits")]
+        public int BaseHits;
+
         public override string ToString() {
-            return String.Format("{0}, {1}, {2}, {3}", MaxHealth, BaseAttack, BaseDefense, BaseSpeed);
+            return String.Format("{0}, {1}, {2}, {3}, {4}, {5}", MaxHealth, BaseAttack, BaseDefense, BaseSpeed, BaseShield, BaseHits);
         }
 
         public override Model GetModel() {
 
-            Characters.Stats stats = new Characters.Stats(MaxHealth, BaseAttack, BaseDefense, BaseSpeed);
+            Characters.Stats stats = new Characters.Stats(MaxHealth, BaseAttack, BaseDefense, BaseSpeed, BaseShield, BaseHits);
 
             return stats;
         }

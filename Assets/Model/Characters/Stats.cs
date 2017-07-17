@@ -10,11 +10,13 @@ namespace MVCGame.MVC.Model.Characters {
     /// </summary>
     public class Stats : Model {
 
-        public Stats(int health, int attack, int defense, int speed) {
+        public Stats(int health, int attack, int defense, int speed, int shield, int hits) {
             healthPoints = new Characters.Statistic("HealthPoints", health);
             attackValue = new Characters.Statistic("AttackValue", attack);
             defenseValue = new Characters.Statistic("DefenseValue", defense);
             speedValue = new Characters.Statistic("SpeedValue", speed);
+            shieldValue = new Characters.Statistic("ShieldValue", shield);
+            hitsValue = new Characters.Statistic("HitsValue", hits);
         }
 
         /// <summary>
@@ -47,6 +49,22 @@ namespace MVCGame.MVC.Model.Characters {
         private Statistic speedValue;
         public Statistic Speed {
             get { return speedValue; }
+        }
+
+        /// <summary>
+        /// The characters shields. This represents how many 'hits' a character can suffer before they can be damaged fully.
+        /// </summary>
+        private Statistic shieldValue;
+        public Statistic Shield {
+            get { return shieldValue; }
+        }
+
+        /// <summary>
+        /// The characters shields. This represents how many 'hits' a character can suffer before they can be damaged fully.
+        /// </summary>
+        private Statistic hitsValue;
+        public Statistic Hits {
+            get { return hitsValue; }
         }
     }
 }

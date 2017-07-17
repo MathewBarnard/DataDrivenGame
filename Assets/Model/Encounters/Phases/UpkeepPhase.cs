@@ -11,22 +11,5 @@ namespace MVCGame.MVC.Model.Encounters {
         public UpkeepPhase() {
             this.name = PhaseName.UPKEEP;
         }
-
-        // Increase the action points of the party who are next to act
-        public List<Combatant> GetCombatantsToAct(List<Combatant> party) {
-
-            List<Combatant> combatantsToAct = new List<Combatant>();
-
-            foreach(Combatant combatant in party) {
-
-                combatant.ActionPoints.AddActionPointsForTurn();
-
-                if(combatant.ActionPoints.CurrentActionPoints > RandomEncounter.ActionPointCap) {
-                    combatantsToAct.Add(combatant);
-                }
-            }
-
-            return combatantsToAct;
-        }
     }
 }

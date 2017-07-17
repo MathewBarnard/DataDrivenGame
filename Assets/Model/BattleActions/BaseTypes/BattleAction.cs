@@ -6,6 +6,8 @@ using System.Text;
 
 namespace MVCGame.MVC.Model.BattleActions {
 
+    public enum TargetingType { ENEMY, ALLY, ALL, SELF };
+
     /// <summary>
     /// This is the abstract class that represents a combatant within a battle.
     /// </summary>

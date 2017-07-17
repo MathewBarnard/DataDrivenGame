@@ -17,5 +17,7 @@ namespace MVCGame.MVC.Model.BattleActions {
 
             this.targetCombatant = combatant;
         }
+
+        public abstract TargetingType GetTargetType();
     }
 }

@@ -33,7 +33,7 @@ namespace MVCGame.MVC.Model.Characters {
         }
 
         /// <summary>
-        /// The characters max health points. Can be affected by buffs/debuffs.
+        /// The characters max of this stat.
         /// </summary>
         private int maxValue;
         public int MaxValue {
