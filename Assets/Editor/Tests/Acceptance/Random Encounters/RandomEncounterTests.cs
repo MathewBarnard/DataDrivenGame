@@ -55,7 +55,7 @@ public class RandomEncounterTests {
         randomEncounter.BeginTurn();
 
         foreach(Combatant combatant in randomEncounter.PlayerParty.PartyMembers) {
-            ValiantStrike attack = new MVCGame.MVC.Model.BattleActions.ValiantStrike();
+            Attack attack = new MVCGame.MVC.Model.BattleActions.Attack("Attack");
             attack.SetActingCombatant(combatant);
             attack.SetTarget(randomEncounter.EnemyParty.PartyMembers[0]);
             randomEncounter.CurrentTurn.PlanningPhase.ActionsToPerform.Add(attack);

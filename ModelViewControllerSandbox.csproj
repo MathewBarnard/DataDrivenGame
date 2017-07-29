@@ -81,14 +81,14 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\Controller\BattleController.cs" />
-    <Compile Include="Assets\Menu\BattleMenu\SelectActionMenu.cs" />
-    <Compile Include="Assets\Menu\BaseMenu.cs" />
-    <Compile Include="Assets\Menu\BattleMenu\SingleTargetMenu.cs" />
     <Compile Include="Assets\Controller\TakeTurnController.cs" />
+    <Compile Include="Assets\Menu\BaseMenu.cs" />
+    <Compile Include="Assets\Menu\BattleMenu\SelectActionMenu.cs" />
+    <Compile Include="Assets\Menu\BattleMenu\SingleTargetMenu.cs" />
     <Compile Include="Assets\Model\BattleActions\Attacks\SingleTargetDefense\Bubble.cs" />
     <Compile Include="Assets\Model\BattleActions\Attacks\SingleTargetOffense\AetherStrike.cs" />
     <Compile Include="Assets\Model\BattleActions\Attacks\SingleTargetOffense\DoubleStrike.cs" />
-    <Compile Include="Assets\Model\BattleActions\Attacks\SingleTargetOffense\ValiantStrike.cs" />
+    <Compile Include="Assets\Model\BattleActions\Attacks\SingleTargetOffense\Attack.cs" />
     <Compile Include="Assets\Model\BattleActions\BaseTypes\Action Results\ActionResult.cs" />
     <Compile Include="Assets\Model\BattleActions\BaseTypes\Action Results\SingleTargetActionResult.cs" />
     <Compile Include="Assets\Model\BattleActions\BaseTypes\BattleAction.cs" />
@@ -97,11 +97,13 @@
     <Compile Include="Assets\Model\BattleActions\BattleActions.cs" />
     <Compile Include="Assets\Model\Characters\Combatant.cs" />
     <Compile Include="Assets\Model\Characters\Party.cs" />
+    <Compile Include="Assets\Model\Characters\RangeType.cs" />
     <Compile Include="Assets\Model\Characters\Statistic.cs" />
     <Compile Include="Assets\Model\Characters\Stats.cs" />
     <Compile Include="Assets\Model\DataStorage\CombatantDAL.cs" />
     <Compile Include="Assets\Model\DataStorage\MenuLayoutDAL.cs" />
     <Compile Include="Assets\Model\DataStorage\PartyDAL.cs" />
+    <Compile Include="Assets\Model\DataStorage\SelectActionMenuDAL.cs" />
     <Compile Include="Assets\Model\DataStorage\StatsDAL.cs" />
     <Compile Include="Assets\Model\DataStorage\XmlModel.cs" />
     <Compile Include="Assets\Model\Encounters\ActionQueue.cs" />
@@ -111,31 +113,56 @@
     <Compile Include="Assets\Model\Encounters\Phases\UpkeepPhase.cs" />
     <Compile Include="Assets\Model\Encounters\RandomEncounter.cs" />
     <Compile Include="Assets\Model\Encounters\Turn.cs" />
+    <Compile Include="Assets\Model\Menu\SelectActionMenu.cs" />
     <Compile Include="Assets\Model\Model.cs" />
     <Compile Include="Assets\System\Battle\DamageCalculator.cs" />
     <Compile Include="Assets\System\Configuration\BattleConfiguration.cs" />
     <Compile Include="Assets\System\Configuration\Configuration.cs" />
     <Compile Include="Assets\System\Configuration\ConfigurationFactory.cs" />
     <Compile Include="Assets\System\Configuration\DataStorageConfiguration.cs" />
+    <Compile Include="Assets\System\Messaging\Callbacks.cs" />
     <Compile Include="Assets\Testing\Test.cs" />
     <Compile Include="Assets\Testing\TestHarness.cs" />
     <Compile Include="Assets\Testing\Xml\XMLDataReadTester.cs" />
     <Compile Include="Assets\Testing\Xml\XMLSerializeTest.cs" />
+    <Compile Include="Assets\View\Metadata\SetEnemyGuid.cs" />
+    <Compile Include="Assets\View\UserInterfaces\Battle\Enemy\EnemyUI.cs" />
+    <Compile Include="Assets\View\UserInterfaces\Battle\Party\PartyStatusUi.cs" />
+    <Compile Include="Assets\View\UserInterfaces\Battle\SelectActionUI\SelectActionUI.cs" />
+    <Compile Include="Assets\View\UserInterfaces\Battle\SelectTargetUI\SelectTargetUI.cs" />
+    <Compile Include="Assets\View\UserInterfaces\Battle\SelectTargetUI\TargetingPanel.cs" />
+    <Compile Include="Assets\View\View.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\Data\CombatCharacterStatistics\Enemies\Goblin.xml" />
-    <None Include="Assets\Data\CombatCharacterStatistics\Players\Test-1.xml" />
-    <None Include="Assets\Data\CombatCharacterStatistics\Players\Test-2.xml" />
-    <None Include="Assets\Data\CombatCharacterStatistics\Players\Test-3.xml" />
-    <None Include="Assets\Data\CombatCharacterStatistics\Players\Test-4.xml" />
-    <None Include="Assets\Data\CombatCharacterStatistics\Players\Test-5.xml" />
-    <None Include="Assets\Data\CombatCharacterStatistics\Players\Test-6.xml" />
+    <None Include="Assets\Data\CombatCharacterStatistics\Players\Sammi.xml" />
+    <None Include="Assets\Data\CombatCharacterStatistics\Players\Nekra.xml" />
+    <None Include="Assets\Data\CombatCharacterStatistics\Players\Ixis.xml" />
+    <None Include="Assets\Data\CombatCharacterStatistics\Players\Rode.xml" />
+    <None Include="Assets\Data\CombatCharacterStatistics\Players\Tazara.xml" />
+    <None Include="Assets\Data\CombatCharacterStatistics\Players\Xan.xml" />
     <None Include="Assets\Data\CombatCharacterStatistics\Players\Test\Test.xml" />
     <None Include="Assets\Data\CombatCharacterStatistics\Players\Test\TestParty.xml" />
-    <None Include="Assets\Data\MenuLayouts\BasicMenu.xml" />
+    <None Include="Assets\Data\MenuLayouts\CombatantMenus\Sammi.xml" />
+    <None Include="Assets\Data\Parties\TestEnemyParty.xml" />
     <None Include="Assets\Data\Parties\TestParty.xml" />
     <None Include="Assets\System\Configuration\BattleConfiguration.xml" />
     <None Include="Assets\System\Configuration\DataStorageConfiguration.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Assets\Data\MenuLayouts\CombatantMenus\Nekra.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Assets\Data\MenuLayouts\CombatantMenus\Ixis.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Assets\Data\MenuLayouts\CombatantMenus\Xan.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Assets\Data\MenuLayouts\CombatantMenus\Tazara.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Assets\Data\MenuLayouts\CombatantMenus\Rode.xml" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

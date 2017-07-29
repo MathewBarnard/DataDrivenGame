@@ -1,16 +1,27 @@
 ﻿using Assets.Menu;
 using Assets.Menu.BattleMenu;
+using Assets.Model.Characters;
+using Assets.System.Messaging;
+using Assets.View.UserInterfaces;
+using Assets.View.UserInterfaces.Battle.SelectTargetUI;
 using MVCGame.MVC.Model.BattleActions;
 using MVCGame.MVC.Model.Characters;
+using MVCGame.MVC.Model.DataStorage.XML;
 using MVCGame.MVC.Model.Encounters;
+using MVCGame.System.Configuration;
 using MVCGame.System.Menus;
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Xml;
 using UnityEngine;
 using UnityEngine.UI;
 
 namespace Assets.Controller {
     public class TakeTurnController : MonoBehaviour {
+
+        // The base range of this character. Required for establishing UI.
+        private RangeType range;
 
         /// <summary>
         /// A control boolean to indicate that the turn has been performed and is ready to be processed.
@@ -30,42 +41,67 @@ namespace Assets.Controller {
             get { return combatant; }
         }
 
-        // The currently active menu
-        private BaseMenu activeMenu;
-
         // The action being performed by the character
         private BattleAction action;
         public BattleAction Action {
             get { return action; }
         }
 
-        // Use this for initialization
-        void Awake() {
-            // Load the acting characters action menu.
-            activeMenu = new SelectActionMenu("BasicMenu", new BaseMenu.MenuCallback(ActionSelected));
+        private SelectActionUI selectActionUI;
+        private SelectTargetUI selectTargetUI;
+
+        // Boot up the interface that allows the user to select an action.
+        public void Start() {
+
+            this.InitialiseSelectActionUI();
         }
 
-        // Update is called once per frame
-        void Update() {
+        private void InitialiseSelectActionUI() {
 
-            if (Input.GetKeyDown(KeyCode.DownArrow)) {
-                activeMenu.MoveDown();
-            }
+            // Get the menu layout store.
+            ConfigurationFactory configFactory = new ConfigurationFactory();
+            DataStorageConfiguration config = (DataStorageConfiguration)configFactory.GetConfiguration(ConfigurationType.DataStorage);
 
-            if (Input.GetKeyDown(KeyCode.UpArrow)) {
-                activeMenu.MoveUp();
-            }
+            // Load the Select Action Menu layout.
+            SelectActionMenuDAL dal = new SelectActionMenuDAL();
+            MVCGame.MVC.Model.Menu.SelectActionMenu menu = (MVCGame.MVC.Model.Menu.SelectActionMenu)dal.LoadModel("CombatantMenus/" + combatant.Name);
 
-            if (Input.GetKeyDown(KeyCode.Space)) {
-                activeMenu.Select();
-            }
-
-            if (Input.GetKeyDown(KeyCode.Escape)) {
-                activeMenu.Cancel();
-            }
+            // Instantiate the interface.
+            this.selectActionUI = this.gameObject.AddComponent<SelectActionUI>();
+            this.selectActionUI.SetParameters(menu, this);
         }
 
-        public void ActionSelected(object selection) {
+        private void InitialiseSelectTargetUI() {
+            this.selectActionUI.enabled = false;
+            this.selectTargetUI = this.gameObject.AddComponent<SelectTargetUI>();
+
+            List<Combatant> possibleTargets = new List<Combatant>();
+
+            switch(action.Range) {
+                case RangeType.SHORT:
+                    possibleTargets = randomEncounterModel.EnemyParty.FrontRow;
+                    break;
+                case RangeType.LONG:
+                    possibleTargets = randomEncounterModel.EnemyParty.PartyMembers;
+                    break;
+                case RangeType.INHERIT:
+                    if (this.combatant.Range == RangeType.SHORT)
+                        possibleTargets = randomEncounterModel.EnemyParty.FrontRow;
+                    else
+                        possibleTargets = randomEncounterModel.EnemyParty.PartyMembers;
+                    break;
+                default:
+                    break;
+            }
+
+            this.selectTargetUI.SetParameters(possibleTargets, this);
+        }
+
+        public void ActionSelected(int actionId) {
+
+            selectActionUI.Hide();
+            BattleAction selection = BattleActionFactory.CreateAction(actionId);
+            selection.SetActingCombatant(this.combatant);
 
             // The player has selected an action to target a single target.
             if (selection is SingleTargetAction) {
@@ -74,20 +110,30 @@ namespace Assets.Controller {
                 SingleTargetAction singleTargetAction = (SingleTargetAction)action;
 
                 if (singleTargetAction.GetTargetType() == TargetingType.ENEMY)
-                    activeMenu = new SingleTargetMenu(randomEncounterModel.EnemyParty.PartyMembers, new BaseMenu.MenuCallback(TargetSelected));
-                else if (singleTargetAction.GetTargetType() == TargetingType.ALLY)
-                    activeMenu = new SingleTargetMenu(randomEncounterModel.PlayerParty.PartyMembers, new BaseMenu.MenuCallback(TargetSelected));
+                    this.InitialiseSelectTargetUI();
             }
         }
 
-        private void TargetSelected(object target) {
+        public void TargetSelected(Guid targetId) {
 
-            if(action is SingleTargetAction) {
-                SingleTargetAction singleTargetAction = (SingleTargetAction)this.action;
-                singleTargetAction.SetTarget((Combatant)target);
+            try {
+                Debug.Log(targetId);
+                if (action is SingleTargetAction) {
+                    SingleTargetAction singleTargetAction = (SingleTargetAction)this.action;
+                    singleTargetAction.SetTarget((Combatant)randomEncounterModel.EnemyParty.PartyMembers.Find(c => c.ID == targetId));
+                }
+
+                isFinished = true;
             }
+            catch(Exception e) {
 
-            isFinished = true;
+            }
+        }
+
+        // Let's clean up the other GameObjects shall we?
+        void OnDestroy() {
+            Destroy(this.selectActionUI);
+            Destroy(this.selectTargetUI);
         }
     }
 }

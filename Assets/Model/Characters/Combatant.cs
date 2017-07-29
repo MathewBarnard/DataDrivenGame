@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Assets.Model.Characters;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -12,6 +13,15 @@ namespace MVCGame.MVC.Model.Characters {
 
         // The characters unique battle ID
         private Guid id;
+        public Guid ID {
+            get { return id; }
+        }
+
+        private RangeType range;
+        public RangeType Range {
+            get { return range; }
+            set { range = value; }
+        }
 
         private string name;
         public string Name {
@@ -26,6 +36,10 @@ namespace MVCGame.MVC.Model.Characters {
         public Stats Stats {
             get { return stats; }
             set { stats = value; }
+        }
+
+        public Combatant() {
+            id = Guid.NewGuid();
         }
     }
 }

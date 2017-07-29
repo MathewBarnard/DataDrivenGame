@@ -6,7 +6,7 @@ using System.Text;
 namespace MVCGame.MVC.Model.BattleActions {
     public class BattleActions {
 
-        public const int VALIANT_STRIKE = 0;
+        public const int ATTACK = 0;
         public const int DUAL_STRIKE = 1;
         public const int AETHER_STRIKE = 2;
 

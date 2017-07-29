@@ -6,6 +6,7 @@ using System.Xml.Serialization;
 using MVCGame.System.Configuration;
 using System.IO;
 using UnityEngine;
+using Assets.Model.Characters;
 
 namespace MVCGame.MVC.Model.DataStorage.XML {
 
@@ -20,12 +21,16 @@ namespace MVCGame.MVC.Model.DataStorage.XML {
         [XmlElement(ElementName = "Name")]
         public string Name;
 
+        [XmlElement(ElementName = "Range")]
+        public int Range;
+
         public StatsDAL Stats;
 
         public override Model GetModel() {
 
             Characters.Combatant combatant = new Characters.Combatant();
             combatant.Name = this.Name;
+            combatant.Range = (RangeType)(Convert.ToInt32(this.Range));
             combatant.Stats = (Characters.Stats)this.Stats.GetModel();
 
             return combatant;
@@ -49,6 +54,7 @@ namespace MVCGame.MVC.Model.DataStorage.XML {
             reader.Close();
 
             this.Name = xmlCombatant.Name;
+            this.Range = xmlCombatant.Range;
             this.Stats = xmlCombatant.Stats;
 
             Characters.Combatant combatant = (MVCGame.MVC.Model.Characters.Combatant)xmlCombatant.GetModel();

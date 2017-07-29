@@ -10,14 +10,14 @@ namespace MVCGame.MVC.Model.BattleActions {
         public static BattleAction CreateAction(int id) {
 
             switch(id) {
-                case BattleActions.VALIANT_STRIKE:
-                    return new ValiantStrike();
+                case BattleActions.ATTACK:
+                    return new Attack("Attack");
                 case BattleActions.DUAL_STRIKE:
-                    return new DoubleStrike();
+                    return new DoubleStrike("Double Strike");
                 case BattleActions.AETHER_STRIKE:
-                    return new AetherStrike();
+                    return new AetherStrike("Aether Strike");
                 case BattleActions.BUBBLE:
-                    return new Bubble();
+                    return new Bubble("Bubble");
                 default:
                     break;
             }

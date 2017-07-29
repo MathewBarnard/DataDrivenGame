@@ -15,7 +15,10 @@ namespace MVCGame.MVC.Model.DataStorage.XML {
         public PartyDAL() {}
 
         [XmlArrayItem("Character")]
-        public string[] Characters;
+        public string[] FrontRow;
+
+        [XmlArrayItem("Character")]
+        public string[] BackRow;
 
         public override Model GetModel() {
 
@@ -42,11 +45,17 @@ namespace MVCGame.MVC.Model.DataStorage.XML {
             // Instantiate the party for population
             Characters.Party party = new Characters.Party();
 
-            foreach(string combatant in xmlParty.Characters) {
+            foreach(string combatant in xmlParty.FrontRow) {
 
                 CombatantDAL xmlCombatant = new CombatantDAL();
                 Characters.Combatant combatantModel = (Characters.Combatant)xmlCombatant.LoadModel(combatant);
-                party.PartyMembers.Add(combatantModel);
+                party.FrontRow.Add(combatantModel);
+            }
+
+            foreach(string combatant in xmlParty.BackRow) {
+                CombatantDAL xmlCombatant = new CombatantDAL();
+                Characters.Combatant combatantModel = (Characters.Combatant)xmlCombatant.LoadModel(combatant);
+                party.BackRow.Add(combatantModel);
             }
 
             return party;

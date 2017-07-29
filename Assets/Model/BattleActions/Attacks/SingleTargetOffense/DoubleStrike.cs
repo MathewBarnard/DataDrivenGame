@@ -16,6 +16,8 @@ namespace MVCGame.MVC.Model.BattleActions {
     /// </summary>
     public class DoubleStrike : SingleTargetAction {
 
+        public DoubleStrike(string name) : base(name) { }
+
         public override ActionResult ProcessAction() {
 
             SingleTargetActionResult actionResult = new SingleTargetActionResult();
@@ -54,6 +56,10 @@ namespace MVCGame.MVC.Model.BattleActions {
 
         public override TargetingType GetTargetType() {
             return TargetingType.ENEMY;
+        }
+
+        public override string ToString() {
+            return "[DoubleStrike] [Target:" + this.targetCombatant.Name + "]";
         }
     }
 }

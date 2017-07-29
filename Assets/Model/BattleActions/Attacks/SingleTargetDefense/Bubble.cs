@@ -8,6 +8,8 @@ using MVCGame.System.Math;
 namespace MVCGame.MVC.Model.BattleActions {
     public class Bubble : SingleTargetAction {
 
+        public Bubble(string name) : base(name) { }
+
         public static TargetingType targetingType = TargetingType.ALLY;
 
         public override ActionResult ProcessAction() {
@@ -27,6 +29,10 @@ namespace MVCGame.MVC.Model.BattleActions {
 
         public override TargetingType GetTargetType() {
             return TargetingType.ALLY;
+        }
+
+        public override string ToString() {
+            return "[Bubble] [Target:" + this.targetCombatant.Name + "]";
         }
     }
 }

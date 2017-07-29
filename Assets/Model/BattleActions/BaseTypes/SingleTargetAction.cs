@@ -11,7 +11,12 @@ namespace MVCGame.MVC.Model.BattleActions {
     /// </summary>
     public abstract class SingleTargetAction : BattleAction {
 
+        public SingleTargetAction(string name) : base(name) { }
+
         protected Combatant targetCombatant;
+        public Combatant TargetCombatant {
+            get { return targetCombatant; }
+        }
 
         public void SetTarget(Characters.Combatant combatant) {
 

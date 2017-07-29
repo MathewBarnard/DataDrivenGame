@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using MVCGame.System.Math;
+using Assets.Model.Characters;
 
 namespace MVCGame.MVC.Model.BattleActions {
 
@@ -14,7 +15,13 @@ namespace MVCGame.MVC.Model.BattleActions {
     /// HITS: 1
     /// Notes: None
     /// </summary>
-    public class ValiantStrike : SingleTargetAction {
+    public class Attack : SingleTargetAction {
+
+        public Attack(string name) : base(name) { }
+
+        public override RangeType Range {
+            get { return RangeType.INHERIT; }
+        }
 
         public override ActionResult ProcessAction() {
 
@@ -49,6 +56,10 @@ namespace MVCGame.MVC.Model.BattleActions {
 
         public override TargetingType GetTargetType() {
             return TargetingType.ENEMY;
+        }
+
+        public override string ToString() {
+            return "[ValiantStrike] [Target:" + this.targetCombatant.Name + "]";
         }
     }
 }
