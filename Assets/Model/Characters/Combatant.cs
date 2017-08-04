@@ -38,6 +38,15 @@ namespace MVCGame.MVC.Model.Characters {
             set { stats = value; }
         }
 
+        /// <summary>
+        /// This characters moveset
+        /// </summary>
+        private MoveSet moveSet;
+        public MoveSet MoveSet {
+            get { return moveSet; }
+            set { moveSet = value; }
+        }
+
         public Combatant() {
             id = Guid.NewGuid();
         }

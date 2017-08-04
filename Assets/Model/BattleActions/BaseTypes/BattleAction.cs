@@ -39,5 +39,15 @@ namespace MVCGame.MVC.Model.BattleActions {
         public void SetActingCombatant(Combatant actingCombatant) {
             this.actingCombatant = actingCombatant;
         }
+
+        /// <summary>
+        /// Dynamically sets the target of a battle action based on the type of the provided action
+        /// </summary>
+        public static void SetTarget(BattleAction action, Combatant combatant) {
+
+            if(action is SingleTargetAction) {
+                (action as SingleTargetAction).SetTarget(combatant);
+            }
+        }
     }
 }

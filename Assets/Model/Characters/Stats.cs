@@ -10,13 +10,17 @@ namespace MVCGame.MVC.Model.Characters {
     /// </summary>
     public class Stats : Model {
 
+        public List<Statistic> AsList;
+
         public Stats(int health, int attack, int defense, int speed, int shield, int hits) {
-            healthPoints = new Characters.Statistic("HealthPoints", health);
-            attackValue = new Characters.Statistic("AttackValue", attack);
-            defenseValue = new Characters.Statistic("DefenseValue", defense);
-            speedValue = new Characters.Statistic("SpeedValue", speed);
-            shieldValue = new Characters.Statistic("ShieldValue", shield);
-            hitsValue = new Characters.Statistic("HitsValue", hits);
+
+            AsList = new List<Statistic>();
+            AsList.Add(healthPoints = new Characters.Statistic(StatisticType.HEALTH, health));
+            AsList.Add(attackValue = new Characters.Statistic(StatisticType.ATTACK, attack));
+            AsList.Add(defenseValue = new Characters.Statistic(StatisticType.DEFENSE, defense));
+            AsList.Add(speedValue = new Characters.Statistic(StatisticType.SPEED, speed));
+            AsList.Add(shieldValue = new Characters.Statistic(StatisticType.SHIELD, shield));
+            AsList.Add(hitsValue = new Characters.Statistic(StatisticType.HITS, hits));
         }
 
         /// <summary>

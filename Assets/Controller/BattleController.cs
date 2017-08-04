@@ -22,6 +22,8 @@ namespace Assets.Controller {
 
         private TakeTurnController takeTurnController;
 
+        private EnemyTurnController enemyTurnController;
+
         private int combatantIndex;
 
         private void Awake() {
@@ -52,8 +54,10 @@ namespace Assets.Controller {
 
         private void NextCombatant() {
 
-            if (combatantIndex == randomEncounterModel.PlayerParty.PartyMembers.Count)
+            if (combatantIndex == randomEncounterModel.PlayerParty.PartyMembers.Count) {
+                GetEnemyActions();
                 ProcessActions();
+            }
             else {
                 // Set up the controller for this characters turn
                 this.takeTurnController = this.gameObject.AddComponent<TakeTurnController>();
@@ -64,6 +68,14 @@ namespace Assets.Controller {
                 if (combatantIndex < randomEncounterModel.PlayerParty.PartyMembers.Count)
                     combatantIndex += 1;
             }
+        }
+
+        private void GetEnemyActions() {
+
+            if(enemyTurnController == null) {
+                this.enemyTurnController = new EnemyTurnController(this.randomEncounterModel.PlayerParty, this.randomEncounterModel.EnemyParty);
+            }
+            actions.AddRange(this.enemyTurnController.GetEnemyActions());
         }
 
         private void ProcessActions() {

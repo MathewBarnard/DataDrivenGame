@@ -7,11 +7,16 @@ namespace MVCGame.MVC.Model.Characters {
 
     public class Statistic : Model {
 
-        public Statistic(string name, int defaultValue) {
-            this.name = name;
+        public Statistic(StatisticType type, int defaultValue) {
+            this.type = type;
             this.defaultValue   = defaultValue;
             this.currentValue   = defaultValue;
             this.maxValue       = defaultValue;
+        }
+
+        private StatisticType type;
+        public StatisticType Type {
+            get { return type; }
         }
 
         /// <summary>
@@ -49,4 +54,14 @@ namespace MVCGame.MVC.Model.Characters {
             get { return defaultValue; }
         }
     }
+
+    public enum StatisticType       
+    {
+        HEALTH,
+        ATTACK,
+        DEFENSE,
+        SPEED,
+        SHIELD,
+        HITS
+    };
 }

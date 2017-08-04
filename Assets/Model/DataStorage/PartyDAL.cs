@@ -9,6 +9,8 @@ using UnityEngine;
 
 namespace MVCGame.MVC.Model.DataStorage.XML {
 
+    public enum PartyType { PLAYER, AI };
+
     [Serializable, XmlRoot(ElementName = "Party")]
     public class PartyDAL : XmlModel {
 
