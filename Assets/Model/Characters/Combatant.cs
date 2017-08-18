@@ -11,24 +11,6 @@ namespace MVCGame.MVC.Model.Characters {
     /// </summary>
     public class Combatant : Model {
 
-        // The characters unique battle ID
-        private Guid id;
-        public Guid ID {
-            get { return id; }
-        }
-
-        private RangeType range;
-        public RangeType Range {
-            get { return range; }
-            set { range = value; }
-        }
-
-        private string name;
-        public string Name {
-            get { return name; }
-            set { name = value; }
-        }
-
         /// <summary>
         /// The combatants stats.
         /// </summary>
@@ -47,8 +29,22 @@ namespace MVCGame.MVC.Model.Characters {
             set { moveSet = value; }
         }
 
-        public Combatant() {
-            id = Guid.NewGuid();
+        /// <summary>
+        /// This characters currently active buffs/debuffs.
+        /// </summary>
+        private BuffSet buffSet;
+        public BuffSet BuffSet {
+            get { return buffSet; }
+            set { buffSet = value; }
+        }
+
+        public bool IsDead() {
+            if(this.stats.HealthPoints.CurrentValue <= 0) {
+                return true;
+            }
+            else {
+                return false;
+            }
         }
     }
 }

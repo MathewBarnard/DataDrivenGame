@@ -6,6 +6,7 @@ using System.Xml.Serialization;
 using MVCGame.System.Configuration;
 using System.IO;
 using UnityEngine;
+using MVCGame.MVC.Model.Characters;
 
 namespace MVCGame.MVC.Model.DataStorage.XML {
 
@@ -15,6 +16,15 @@ namespace MVCGame.MVC.Model.DataStorage.XML {
     public class PartyDAL : XmlModel {
 
         public PartyDAL() {}
+
+        [XmlElement(ElementName = "ResourceId")]
+        public Guid ResourceId;
+
+        [XmlElement(ElementName = "Name")]
+        public string Name;
+
+        [XmlElement("Formation")]
+        public string Formation;
 
         [XmlArrayItem("Character")]
         public string[] FrontRow;
@@ -47,6 +57,11 @@ namespace MVCGame.MVC.Model.DataStorage.XML {
             // Instantiate the party for population
             Characters.Party party = new Characters.Party();
 
+            party.Id = new Guid();
+            party.ResourceId = this.ResourceId;
+            party.Name = xmlParty.Name;
+            party.Formation = xmlParty.Formation;
+
             foreach(string combatant in xmlParty.FrontRow) {
 
                 CombatantDAL xmlCombatant = new CombatantDAL();
@@ -61,6 +76,16 @@ namespace MVCGame.MVC.Model.DataStorage.XML {
             }
 
             return party;
+        }
+
+        public void SaveModel(Party party) {
+
+            CombatantDAL combatantDAL = new CombatantDAL();
+
+            foreach(Combatant combatant in party.PartyMembers) {
+
+                combatantDAL.SaveModel(combatant);
+            }
         }
     }
 }

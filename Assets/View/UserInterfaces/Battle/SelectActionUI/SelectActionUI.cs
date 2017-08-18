@@ -13,6 +13,7 @@ namespace Assets.View.UserInterfaces {
 
         // The main canvas
         private GameObject menuAnchor;
+        private GameObject skillsMenuAnchor;
 
         private SelectActionMenu selectActionMenu;
 
@@ -29,27 +30,9 @@ namespace Assets.View.UserInterfaces {
 
             // Get the main canvas
             this.menuAnchor = GameObject.Find("MenuSelectActionAnchor");
+            this.skillsMenuAnchor = GameObject.Find("MenuSkillsAnchor");
 
-            float pos = 0;
-
-            foreach(int actionId in selectActionMenu.actionIds) {
-
-                // Attach the object
-                GameObject obj = Instantiate(Resources.Load("Prefabs/UI Prefabs/SelectActionButton"), menuAnchor.transform) as GameObject;
-
-                BattleActionFactory.CreateAction(actionId);
-
-                if (obj.GetComponentInChildren<Text>() != null) {
-                    obj.GetComponentInChildren<Text>().text = BattleActionFactory.CreateAction(actionId).Name;
-                    obj.GetComponentInChildren<Text>().fontSize = 28;
-                }
-
-                obj.GetComponent<RectTransform>().offsetMin = new Vector2(0, pos);
-
-                pos -= 120;
-
-                this.menuItems.Add(obj);
-            }
+            this.AddDefaultMenuItems();
 
             enabled = true;
         }
@@ -60,7 +43,7 @@ namespace Assets.View.UserInterfaces {
         }
 
         public void Hide() {
-        
+
         }
 
         private void SetListener(GameObject buttonObject, int actionId) {
@@ -69,16 +52,22 @@ namespace Assets.View.UserInterfaces {
 
         private void OnEnable() {
 
-            for(int i = 0; i < this.menuItems.Count; i++) {
+            /*for(int i = 0; i < this.menuItems.Count; i++) {
                 SetListener(this.menuItems[i], this.selectActionMenu.actionIds[i]);
-            }
+            }*/
         }
 
         private void OnDisable() {
 
             if (menuItems != null) {
                 foreach (GameObject obj in menuItems) {
-                    obj.GetComponentInChildren<Button>().onClick.RemoveAllListeners();
+
+                    if (obj != null) {
+                        Button button = obj.GetComponentInChildren<Button>();
+
+                        if (button != null)
+                            button.onClick.RemoveAllListeners();
+                    }
                 }
             }
         }
@@ -86,6 +75,78 @@ namespace Assets.View.UserInterfaces {
         void OnDestroy() {
             foreach (GameObject obj in menuItems) {
                 Destroy(obj);
+            }
+        }
+
+        private void AddDefaultMenuItems() {
+
+            // Add attack
+            // Attach the object
+            GameObject fightButton = Instantiate(Resources.Load("Prefabs/UI Prefabs/SelectActionButton"), menuAnchor.transform) as GameObject;
+
+            BattleActionFactory.CreateAction(BattleActions.ATTACK);
+
+            if (fightButton.GetComponentInChildren<Text>() != null) {
+                fightButton.GetComponentInChildren<Text>().text = "Fight!";
+                fightButton.GetComponentInChildren<Text>().fontSize = 28;
+            }
+
+            this.SetListener(fightButton, BattleActions.ATTACK);
+
+            this.menuItems.Add(fightButton);
+
+            GameObject skillsButton = Instantiate(Resources.Load("Prefabs/UI Prefabs/SelectActionButton"), menuAnchor.transform) as GameObject;
+
+            if (skillsButton.GetComponentInChildren<Text>() != null) {
+                skillsButton.GetComponentInChildren<Text>().text = "Skills";
+                skillsButton.GetComponentInChildren<Text>().fontSize = 28;
+            }
+
+            skillsButton.GetComponent<RectTransform>().offsetMin = new Vector2(0, -120);
+
+            skillsButton.GetComponentInChildren<Button>().onClick.AddListener(() => this.ShowSelectActionMenu());
+
+            this.menuItems.Add(skillsButton);
+
+            GameObject defendButton = Instantiate(Resources.Load("Prefabs/UI Prefabs/SelectActionButton"), menuAnchor.transform) as GameObject;
+
+            if (defendButton.GetComponentInChildren<Text>() != null) {
+                defendButton.GetComponentInChildren<Text>().text = "Defend";
+                defendButton.GetComponentInChildren<Text>().fontSize = 28;
+            }
+
+            defendButton.GetComponent<RectTransform>().offsetMin = new Vector2(0, -240);
+
+            this.menuItems.Add(defendButton);
+
+            GameObject itemButton = Instantiate(Resources.Load("Prefabs/UI Prefabs/SelectActionButton"), menuAnchor.transform) as GameObject;
+
+            if (itemButton.GetComponentInChildren<Text>() != null) {
+                itemButton.GetComponentInChildren<Text>().text = "Item";
+                itemButton.GetComponentInChildren<Text>().fontSize = 28;
+            }
+
+            itemButton.GetComponent<RectTransform>().offsetMin = new Vector2(0, -360);
+
+            this.menuItems.Add(itemButton);
+        }
+
+        private void ShowSelectActionMenu() {
+
+            foreach (int actionId in this.selectActionMenu.actionIds) {
+                // Attach the object
+                GameObject skillButton = Instantiate(Resources.Load("Prefabs/UI Prefabs/SelectActionButton"), skillsMenuAnchor.transform) as GameObject;
+
+                BattleAction action = BattleActionFactory.CreateAction(actionId);
+
+                if (skillButton.GetComponentInChildren<Text>() != null) {
+                    skillButton.GetComponentInChildren<Text>().text = action.Name;
+                    skillButton.GetComponentInChildren<Text>().fontSize = 28;
+                }
+
+                this.SetListener(skillButton, actionId);
+
+                this.menuItems.Add(skillButton);
             }
         }
     }

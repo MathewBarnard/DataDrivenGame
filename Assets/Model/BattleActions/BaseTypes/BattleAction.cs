@@ -1,4 +1,5 @@
-﻿using Assets.Model.Characters;
+﻿using Assets.Model.BattleActions.BaseTypes;
+using Assets.Model.Characters;
 using MVCGame.MVC.Model.Characters;
 using System;
 using System.Collections.Generic;
@@ -30,6 +31,8 @@ namespace MVCGame.MVC.Model.BattleActions {
             get { return actingCombatant; }
         }
 
+        public abstract bool CheckActionStillValid();
+  
         public abstract ActionResult ProcessAction();
 
         public BattleAction(string name) {
@@ -49,5 +52,9 @@ namespace MVCGame.MVC.Model.BattleActions {
                 (action as SingleTargetAction).SetTarget(combatant);
             }
         }
+
+        public abstract void Redirect(Party party);
+
+        public abstract RedirectType GetRedirectType();
     }
 }

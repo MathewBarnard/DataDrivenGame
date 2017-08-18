@@ -62,6 +62,8 @@ namespace MVCGame.MVC.Model.Characters {
         DEFENSE,
         SPEED,
         SHIELD,
-        HITS
+        HITS,
+        BASE_DAM_MOD,
+        BASE_DAM_RED
     };
 }

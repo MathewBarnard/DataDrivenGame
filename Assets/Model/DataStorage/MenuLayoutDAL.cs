@@ -11,7 +11,7 @@ using System.Xml;
 
 namespace MVCGame.MVC.Model.DataStorage.XML {
 
-    [Serializable, XmlRoot(ElementName = "MenuLayout")]
+    [Serializable]
     public class MenuLayoutDAL : XmlModel {
 
         public override Model LoadModel(string nameOfCombatant) {

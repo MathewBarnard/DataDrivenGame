@@ -13,7 +13,7 @@ using MVCGame.MVC.Model.Characters;
 
 namespace MVCGame.MVC.Model.DataStorage.XML {
 
-    [Serializable, XmlRoot(ElementName = "MoveSet")]
+    [Serializable]
     public class MoveSetDAL : XmlModel {
 
         public MoveSetDAL() {

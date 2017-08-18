@@ -8,6 +8,8 @@ using System.IO;
 using UnityEngine;
 using Assets.Model.Characters;
 using MVCGame.MVC.Model.Characters;
+using Assets.Model.DataStorage;
+using System.Xml;
 
 namespace MVCGame.MVC.Model.DataStorage.XML {
 
@@ -21,24 +23,38 @@ namespace MVCGame.MVC.Model.DataStorage.XML {
             Stats = new StatsDAL();
         }
 
+        [XmlElement(ElementName = "ResourceId")]
+        public Guid ResourceId;
+
         [XmlElement(ElementName = "Name")]
         public string Name;
-
-        [XmlElement(ElementName = "Range")]
-        public int Range;
 
         public StatsDAL Stats;
 
         public MoveSetDAL MoveSet;
 
+        public BuffSetDAL Buffs;
+
         public override Model GetModel() {
 
             Characters.Combatant combatant = new Characters.Combatant();
+            combatant.Id = Guid.NewGuid();
+            combatant.ResourceId = this.ResourceId;
             combatant.Name = this.Name;
-            combatant.Range = (RangeType)(Convert.ToInt32(this.Range));
             combatant.Stats = (Characters.Stats)this.Stats.GetModel();
             combatant.MoveSet = (MoveSet)this.MoveSet.GetModel();
+            combatant.BuffSet = (BuffSet)this.Buffs.GetModel();
             return combatant;
+        }
+
+        public static XmlModel ToModel(Combatant combatant) {
+
+            CombatantDAL combatantDal = new CombatantDAL();
+
+            combatantDal.Name = combatant.Name;
+            combatantDal.Stats = StatsDAL.ToModel(combatant.Stats);
+
+            return combatantDal;
         }
 
         public override Model LoadModel(string nameOfCombatant) {
@@ -59,13 +75,27 @@ namespace MVCGame.MVC.Model.DataStorage.XML {
             reader.Close();
 
             this.Name = xmlCombatant.Name;
-            this.Range = xmlCombatant.Range;
             this.Stats = xmlCombatant.Stats;
             this.MoveSet = xmlCombatant.MoveSet;
+            this.Buffs = xmlCombatant.Buffs;
 
             Characters.Combatant combatant = (MVCGame.MVC.Model.Characters.Combatant)xmlCombatant.GetModel();
 
             return combatant;
+        }
+
+        public void SaveModel(Combatant combatant) {
+
+            XmlSerializer serializer = new XmlSerializer(typeof(CombatantDAL));
+
+            using (StringWriter stringWriter = new StringWriter()) {
+
+                using (XmlWriter writer = XmlWriter.Create(stringWriter)) {
+
+                    serializer.Serialize(writer, combatant);
+                    Debug.Log(stringWriter.ToString());
+                }
+            }
         }
     }
 }

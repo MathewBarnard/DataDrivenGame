@@ -24,5 +24,14 @@ namespace MVCGame.MVC.Model.BattleActions {
         }
 
         public abstract TargetingType GetTargetType();
+
+        public override bool CheckActionStillValid() {
+            if(targetCombatant.IsDead()) {
+                return false;
+            }
+            else {
+                return true;
+            }
+        }
     }
 }

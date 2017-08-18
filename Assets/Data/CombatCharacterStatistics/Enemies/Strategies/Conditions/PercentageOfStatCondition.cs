@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using UnityEngine;
 
 namespace Assets.Data.CombatCharacterStatistics.Enemies.Strategies.Conditions {
     public class PercentageOfStatCondition : Condition, IPlayerPartyCondition {
@@ -49,8 +50,9 @@ namespace Assets.Data.CombatCharacterStatistics.Enemies.Strategies.Conditions {
             }
 
             // Randomly select a target
-            if (potentialTargets.Count > 0)
-                return potentialTargets[0];
+            if (potentialTargets.Count > 0) {
+                return potentialTargets[UnityEngine.Random.Range(0, potentialTargets.Count - 1)];
+            }
             else
                 return null;
         }

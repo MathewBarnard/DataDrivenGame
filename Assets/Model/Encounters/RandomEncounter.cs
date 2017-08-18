@@ -25,14 +25,7 @@ namespace MVCGame.MVC.Model.Encounters {
             get { return enemyParty; }
         }
 
-        private Turn currentTurn;
-        public Turn CurrentTurn {
-            get { return currentTurn; }
-            set { currentTurn = value; }
-        }
-
         public RandomEncounter(string playerParty, string enemyParty) {
-            currentTurn = null;
             turnsTaken = 0;
 
             // Set battle parameters based on developer configuration
@@ -45,14 +38,17 @@ namespace MVCGame.MVC.Model.Encounters {
             this.enemyParty = (Party)partyDao.LoadModel(enemyParty);
         }
 
-        public void BeginTurn() {
+        public RandomEncounter(Party playerParty, string enemyParty) {
+            turnsTaken = 0;
 
-            this.currentTurn = null;
+            // Set battle parameters based on developer configuration
+            ConfigurationFactory configFactory = new ConfigurationFactory();
+            BattleConfiguration config = (BattleConfiguration)configFactory.GetConfiguration(ConfigurationType.Battle);
 
-            this.currentTurn = new Turn();
-
-            // Begin the turn
-            this.currentTurn.BeginTurn();
+            // Load the players current party configuration and the enemy party from storage. 
+            DataStorage.XML.PartyDAL partyDao = new DataStorage.XML.PartyDAL();
+            this.playerParty = playerParty;
+            this.enemyParty = (Party)partyDao.LoadModel(enemyParty);
         }
     }
 }

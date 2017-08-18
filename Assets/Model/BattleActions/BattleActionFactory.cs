@@ -12,12 +12,6 @@ namespace MVCGame.MVC.Model.BattleActions {
             switch(id) {
                 case BattleActions.ATTACK:
                     return new Attack("Attack");
-                case BattleActions.DUAL_STRIKE:
-                    return new DoubleStrike("Double Strike");
-                case BattleActions.AETHER_STRIKE:
-                    return new AetherStrike("Aether Strike");
-                case BattleActions.BUBBLE:
-                    return new Bubble("Bubble");
                 default:
                     break;
             }

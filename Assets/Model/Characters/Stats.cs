@@ -12,7 +12,7 @@ namespace MVCGame.MVC.Model.Characters {
 
         public List<Statistic> AsList;
 
-        public Stats(int health, int attack, int defense, int speed, int shield, int hits) {
+        public Stats(int health, int attack, int defense, int speed, int shield, int hits, int baseDamMod = 0, int baseDamRed = 0) {
 
             AsList = new List<Statistic>();
             AsList.Add(healthPoints = new Characters.Statistic(StatisticType.HEALTH, health));
@@ -21,6 +21,8 @@ namespace MVCGame.MVC.Model.Characters {
             AsList.Add(speedValue = new Characters.Statistic(StatisticType.SPEED, speed));
             AsList.Add(shieldValue = new Characters.Statistic(StatisticType.SHIELD, shield));
             AsList.Add(hitsValue = new Characters.Statistic(StatisticType.HITS, hits));
+            AsList.Add(baseDefenseModifier = new Characters.Statistic(StatisticType.BASE_DAM_RED, baseDamRed));
+            AsList.Add(baseDamageModifier = new Characters.Statistic(StatisticType.BASE_DAM_MOD, baseDamMod));
         }
 
         /// <summary>
@@ -69,6 +71,22 @@ namespace MVCGame.MVC.Model.Characters {
         private Statistic hitsValue;
         public Statistic Hits {
             get { return hitsValue; }
+        }
+
+        /// <summary>
+        /// The characters shields. This represents how many 'hits' a character can suffer before they can be damaged fully.
+        /// </summary>
+        private Statistic baseDamageModifier;
+        public Statistic BaseDamageModifier {
+            get { return baseDamageModifier; }
+        }
+
+        /// <summary>
+        /// The characters shields. This represents how many 'hits' a character can suffer before they can be damaged fully.
+        /// </summary>
+        private Statistic baseDefenseModifier;
+        public Statistic BaseDefenseModifier {
+            get { return baseDefenseModifier; }
         }
     }
 }

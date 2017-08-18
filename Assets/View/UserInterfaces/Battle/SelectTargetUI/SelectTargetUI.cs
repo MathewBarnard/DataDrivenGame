@@ -35,32 +35,16 @@ namespace Assets.View.UserInterfaces.Battle.SelectTargetUI {
             for(int i = 0; i < possibleTargets.Count; i++) {
 
                 // Get the base enemy object by its GUID. Try the front row first.
-                Transform jobby = enemiesRoot.transform.GetChild(0).Find(possibleTargets[i].ID.ToString());
-
+                Transform jobby = enemiesRoot.transform.GetChild(0).GetChild(0).Find(possibleTargets[i].Id.ToString());
+                
                 // If we didn't find anything, check the back row.
                 if (jobby == null)
-                    jobby = enemiesRoot.transform.GetChild(1).Find(possibleTargets[i].ID.ToString());
+                    jobby = enemiesRoot.transform.GetChild(0).GetChild(1).Find(possibleTargets[i].Id.ToString());
 
-                EnemyUI enemyTargetClicker = jobby.gameObject.transform.GetChild(0).gameObject.AddComponent<EnemyUI>();
-                enemyTargetClicker.EnemyId = possibleTargets[i].ID;
+                EnemyUI enemyTargetClicker = jobby.gameObject.transform.GetChild(0).GetChild(0).gameObject.AddComponent<EnemyUI>();
+                enemyTargetClicker.EnemyId = possibleTargets[i].Id;
                 enemyTargetClicker.EnemyIdCallback = new GuidCallback(controller.TargetSelected);
                 enemyTargetClickers.Add(enemyTargetClicker);
-                /*
-                GameObject obj = Instantiate(Resources.Load("Prefabs/UI Prefabs/TargetingPanelUI"), canvasAnchor.transform) as GameObject;
-
-                Vector2 pos = RectTransformUtility.WorldToScreenPoint(Camera.main, enemiesRoot.transform.GetChild(i).position);
-
-                RectTransformUtility.ScreenPointToLocalPointInRectangle(canvasAnchor.GetComponent<RectTransform>(), 
-                    pos, Camera.main, out pos);
-
-                obj.GetComponent<RectTransform>().anchoredPosition = pos;
-
-                // Explicitly set this to pass through to the listener. For some reason it wasn't working on the loop increment?
-                int enemyId = i;
-
-                obj.GetComponent<Button>().onClick.AddListener(() => controller.TargetSelected(enemyId));
-
-                targetingPanels.Add(obj);*/
             }
 
             enabled = true;

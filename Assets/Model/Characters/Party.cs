@@ -7,6 +7,18 @@ namespace MVCGame.MVC.Model.Characters {
 
     public class Party : Model {
 
+        private string name;
+        public string Name {
+            get { return name; }
+            set { name = value; }
+        }
+
+        private string formation;
+        public string Formation {
+            get { return formation; }
+            set { formation = value; }
+        }
+
         private List<Combatant> partyMembers;
         public List<Combatant> PartyMembers {
             get 
